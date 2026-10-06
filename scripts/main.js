@@ -1,5 +1,6 @@
 /* ========================================
    KaZora - Main JavaScript
+   Mobile Menu, FAQ, Smooth Scroll & Template Katalog
    ======================================== */
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -7,6 +8,8 @@ document.addEventListener('DOMContentLoaded', () => {
     initNavbarScroll();
     initFAQ();
     initSmoothScroll();
+    initTemplateKatalog();
+    initTemplateModal();
 });
 
 /* ========== MOBILE MENU ========== */
@@ -19,33 +22,28 @@ function initMobileMenu() {
     
     if (!mobileMenuToggle) return;
     
-    // Toggle menu
     mobileMenuToggle.addEventListener('click', () => {
         toggleMobileMenu();
     });
     
-    // Close button
     if (mobileMenuClose) {
         mobileMenuClose.addEventListener('click', () => {
             closeMobileMenu();
         });
     }
     
-    // Close on overlay click
     if (mobileMenuOverlay) {
         mobileMenuOverlay.addEventListener('click', () => {
             closeMobileMenu();
         });
     }
     
-    // Close when clicking on a link
     mobileNavLinks.forEach(link => {
         link.addEventListener('click', () => {
             closeMobileMenu();
         });
     });
     
-    // Close on escape key
     document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape' && mobileMenu.classList.contains('active')) {
             closeMobileMenu();
@@ -62,7 +60,6 @@ function toggleMobileMenu() {
     mobileMenu.classList.toggle('active');
     mobileMenuOverlay.classList.toggle('active');
     
-    // Prevent body scroll
     if (mobileMenu.classList.contains('active')) {
         document.body.style.overflow = 'hidden';
     } else {
@@ -84,7 +81,6 @@ function closeMobileMenu() {
 /* ========== NAVBAR SCROLL EFFECT ========== */
 function initNavbarScroll() {
     const navbar = document.querySelector('.sticky-navbar');
-    let lastScrollTop = 0;
     
     if (!navbar) return;
     
@@ -92,12 +88,10 @@ function initNavbarScroll() {
         const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
         
         if (scrollTop > 50) {
-            navbar.style.boxShadow = 'var(--shadow-md)';
+            navbar.style.boxShadow = '0 8px 24px rgba(58, 43, 20, 0.08)';
         } else {
-            navbar.style.boxShadow = 'var(--shadow-sm)';
+            navbar.style.boxShadow = '0 1px 2px rgba(0, 0, 0, 0.05)';
         }
-        
-        lastScrollTop = scrollTop;
     });
 }
 
@@ -121,12 +115,10 @@ function initFAQ() {
 function toggleFAQItem(item) {
     const isActive = item.classList.contains('active');
     
-    // Close all items
     document.querySelectorAll('.faq-item').forEach(faqItem => {
         faqItem.classList.remove('active');
     });
     
-    // Open clicked item if it wasn't active
     if (!isActive) {
         item.classList.add('active');
     }
@@ -140,7 +132,6 @@ function initSmoothScroll() {
         link.addEventListener('click', (e) => {
             const href = link.getAttribute('href');
             
-            // Skip if it's just "#" or empty
             if (href === '#' || href === '') return;
             
             const target = document.querySelector(href);
@@ -148,7 +139,6 @@ function initSmoothScroll() {
             if (target) {
                 e.preventDefault();
                 
-                // Calculate offset for sticky navbar
                 const navbarHeight = document.querySelector('.navbar')?.offsetHeight || 0;
                 const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - navbarHeight - 20;
                 
@@ -157,7 +147,6 @@ function initSmoothScroll() {
                     behavior: 'smooth'
                 });
                 
-                // Close mobile menu if open
                 const mobileMenu = document.getElementById('mobileMenu');
                 if (mobileMenu && mobileMenu.classList.contains('active')) {
                     closeMobileMenu();
@@ -167,7 +156,201 @@ function initSmoothScroll() {
     });
 }
 
-/* ========== UTILITIES ========== */
+/* ========== TEMPLATE KATALOG ========== */
+let currentFilter = 'semua';
+let currentSearch = '';
+
+function initTemplateKatalog() {
+    const filterTabs = document.querySelectorAll('.filter-tab');
+    const searchInput = document.getElementById('templateSearch');
+    
+    // Filter Tab Events
+    filterTabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+            filterTabs.forEach(t => t.classList.remove('active'));
+            tab.classList.add('active');
+            currentFilter = tab.dataset.filter;
+            renderTemplates();
+        });
+    });
+    
+    // Search Input Events
+    if (searchInput) {
+        searchInput.addEventListener('input', (e) => {
+            currentSearch = e.target.value.toLowerCase();
+            renderTemplates();
+        });
+    }
+    
+    // Initial render
+    renderTemplates();
+}
+
+function renderTemplates() {
+    const templateGrid = document.getElementById('templateGrid');
+    const noResults = document.getElementById('noResults');
+    
+    if (!templateGrid) return;
+    
+    // Filter templates
+    let filteredTemplates = templates.filter(template => {
+        // Filter by class
+        const classMatch = currentFilter === 'semua' || template.kelas === currentFilter;
+        
+        // Filter by search
+        const searchMatch = template.title.toLowerCase().includes(currentSearch) ||
+                          template.nuansa.toLowerCase().includes(currentSearch);
+        
+        return classMatch && searchMatch;
+    });
+    
+    // Show/hide no results message
+    if (filteredTemplates.length === 0) {
+        templateGrid.innerHTML = '';
+        noResults.style.display = 'flex';
+        return;
+    }
+    
+    noResults.style.display = 'none';
+    
+    // Render template cards
+    templateGrid.innerHTML = filteredTemplates.map(template => `
+        <div class="template-card" data-template-id="${template.id}">
+            <div class="template-image">
+                <img src="${template.image}" alt="${template.title}">
+                <div class="template-overlay">
+                    <button class="template-detail-btn" data-template-id="${template.id}">
+                        <i class="fas fa-eye"></i> Lihat Detail
+                    </button>
+                </div>
+            </div>
+            <div class="template-content">
+                <div class="template-badge template-badge-${template.kelas}">
+                    ${getBadgeLabel(template.kelas)}
+                </div>
+                <h3 class="template-title">${template.title}</h3>
+                <p class="template-nuansa">${template.nuansa}</p>
+                <div class="template-footer">
+                    <span class="template-price">Rp ${formatPrice(template.harga)}</span>
+                    <button class="template-arrow" data-template-id="${template.id}">
+                        <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    `).join('');
+    
+    // Add event listeners to detail buttons
+    document.querySelectorAll('.template-detail-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const templateId = parseInt(btn.dataset.templateId);
+            openTemplateModal(templateId);
+        });
+    });
+    
+    // Add event listeners to arrow buttons
+    document.querySelectorAll('.template-arrow').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const templateId = parseInt(btn.dataset.templateId);
+            openTemplateModal(templateId);
+        });
+    });
+}
+
+function getBadgeLabel(kelas) {
+    const badges = {
+        basic: '<i class="fas fa-sparkles"></i> Basic',
+        premium: '<i class="fas fa-crown"></i> Premium',
+        exclusive: '<i class="fas fa-diamond"></i> Exclusive'
+    };
+    return badges[kelas] || kelas;
+}
+
+function formatPrice(price) {
+    return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+}
+
+/* ========== TEMPLATE MODAL ========== */
+function initTemplateModal() {
+    const modal = document.getElementById('templateModal');
+    const closeModalBtn = document.getElementById('closeModal');
+    const closeBtn = document.getElementById('closeModalBtn');
+    
+    if (closeModalBtn) {
+        closeModalBtn.addEventListener('click', () => {
+            closeTemplateModal();
+        });
+    }
+    
+    if (closeBtn) {
+        closeBtn.addEventListener('click', () => {
+            closeTemplateModal();
+        });
+    }
+    
+    // Close modal when clicking outside
+    if (modal) {
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                closeTemplateModal();
+            }
+        });
+    }
+    
+    // Close on escape key
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+            closeTemplateModal();
+        }
+    });
+}
+
+function openTemplateModal(templateId) {
+    const template = templates.find(t => t.id === templateId);
+    
+    if (!template) return;
+    
+    const modal = document.getElementById('templateModal');
+    const modalImage = document.getElementById('modalImage');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalNuansa = document.getElementById('modalNuansa');
+    const modalPrice = document.getElementById('modalPrice');
+    const modalFeaturesList = document.getElementById('modalFeaturesList');
+    const modalOrderBtn = document.getElementById('modalOrderBtn');
+    
+    // Set modal content
+    modalImage.src = template.image;
+    modalTitle.textContent = template.title;
+    modalNuansa.textContent = template.nuansa;
+    modalPrice.textContent = `Rp ${formatPrice(template.harga)}`;
+    
+    // Set features
+    modalFeaturesList.innerHTML = template.features.map(feature => `
+        <li>
+            <i class="fas fa-check-circle"></i>
+            ${feature}
+        </li>
+    `).join('');
+    
+    // Set order button
+    const whatsappMessage = `Saya ingin memesan template ${template.title} (${template.nuansa}) seharga Rp ${formatPrice(template.harga)}`;
+    const whatsappUrl = `https://wa.me/6282199773126?text=${encodeURIComponent(whatsappMessage)}`;
+    modalOrderBtn.href = whatsappUrl;
+    
+    // Show modal
+    modal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+}
+
+function closeTemplateModal() {
+    const modal = document.getElementById('templateModal');
+    modal.classList.remove('active');
+    document.body.style.overflow = '';
+}
+
+/* ========== UTILITY FUNCTIONS ========== */
 
 /**
  * Throttle function to limit function calls
@@ -195,48 +378,6 @@ function debounce(func, wait) {
 }
 
 /**
- * Check if element is in viewport
- */
-function isInViewport(element) {
-    const rect = element.getBoundingClientRect();
-    return (
-        rect.top >= 0 &&
-        rect.left >= 0 &&
-        rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
-        rect.right <= (window.innerWidth || document.documentElement.clientWidth)
-    );
-}
-
-/**
- * Add animation class when element enters viewport
- */
-function initScrollAnimations() {
-    const elements = document.querySelectorAll('[data-animate]');
-    
-    if (elements.length === 0) return;
-    
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('animated');
-                observer.unobserve(entry.target);
-            }
-        });
-    }, {
-        threshold: 0.1
-    });
-    
-    elements.forEach(element => {
-        observer.observe(element);
-    });
-}
-
-/* Initialize scroll animations if needed */
-if (document.querySelectorAll('[data-animate]').length > 0) {
-    initScrollAnimations();
-}
-
-/**
  * Log initialization
  */
-console.log('🎨 KaZora - Warm Earthy Design System Loaded');
+console.log('🎨 KaZora - Interactive Template Catalog Loaded');
