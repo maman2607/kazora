@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="KaZora - Platform Template dan Layanan Desain Premium">
+    <meta name="theme-color" content="#705429">
+    
+    <title>KaZora - Template & Layanan Desain Premium</title>
+    
+    <!-- Google Fonts: Playfair Display & Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome Icons CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Main Stylesheet -->
+    <link rel="stylesheet" href="styles/style.css">
+</head>
+<body>
+    <!-- Mobile Menu Overlay -->
+    <div id="mobileMenuOverlay" class="mobile-menu-overlay"></div>
+    
+    <!-- Sticky Navigation Bar -->
+    <nav class="navbar sticky-navbar">
+        <div class="navbar-container">
+            <!-- Logo -->
+            <div class="navbar-logo">
+                <a href="#home" class="logo-link">
+                    <span class="logo-text">KaZora</span>
+                </a>
+            </div>
+            
+            <!-- Desktop Menu -->
+            <ul class="navbar-menu desktop-menu">
+                <li><a href="#beranda" class="nav-link">Beranda</a></li>
+                <li><a href="#template" class="nav-link">Template</a></li>
+                <li><a href="#paket" class="nav-link">Paket Harga</a></li>
+                <li><a href="#fitur" class="nav-link">Fitur</a></li>
+                <li><a href="#cara-pesan" class="nav-link">Cara Pesan</a></li>
+                <li><a href="#faq" class="nav-link">FAQ</a></li>
+                <li><a href="#hubungi" class="nav-link">Hubungi Kami</a></li>
+            </ul>
+            
+            <!-- CTA Button (Desktop) -->
+            <div class="navbar-cta">
+                <a href="#pesan" class="btn btn-primary">Pesan Sekarang</a>
+            </div>
+            
+            <!-- Mobile Menu Toggle -->
+            <button id="mobileMenuToggle" class="mobile-menu-toggle" aria-label="Toggle menu">
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+            </button>
+        </div>
+    </nav>
+    
+    <!-- Mobile Drawer Menu -->
+    <div id="mobileMenu" class="mobile-menu">
+        <div class="mobile-menu-header">
+            <h2 class="mobile-menu-title">Menu</h2>
+            <button id="mobileMenuClose" class="mobile-menu-close">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        
+        <ul class="mobile-menu-list">
+            <li><a href="#beranda" class="mobile-nav-link">Beranda</a></li>
+            <li><a href="#template" class="mobile-nav-link">Template</a></li>
+            <li><a href="#paket" class="mobile-nav-link">Paket Harga</a></li>
+            <li><a href="#fitur" class="mobile-nav-link">Fitur</a></li>
+            <li><a href="#cara-pesan" class="mobile-nav-link">Cara Pesan</a></li>
+            <li><a href="#faq" class="mobile-nav-link">FAQ</a></li>
+            <li><a href="#hubungi" class="mobile-nav-link">Hubungi Kami</a></li>
+        </ul>
+        
+        <div class="mobile-menu-footer">
+            <a href="#pesan" class="btn btn-primary btn-block">Pesan Sekarang</a>
+        </div>
+    </div>
+    
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Hero Section -->
+        <section id="beranda" class="hero-section">
+            <div class="container">
+                <div class="hero-content">
+                    <h1 class="hero-title">Wujudkan Visi Digital Anda</h1>
+                    <p class="hero-subtitle">Koleksi template premium dan layanan desain profesional untuk website impian Anda</p>
+                    <div class="hero-buttons">
+                        <a href="#pesan" class="btn btn-primary btn-lg">Mulai Sekarang</a>
+                        <a href="#template" class="btn btn-secondary btn-lg">Lihat Katalog</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Content Placeholder Sections -->
+        <section id="template" class="section section-light">
+            <div class="container">
+                <h2 class="section-title">Template Koleksi</h2>
+                <p class="section-subtitle">Jelajahi berbagai template berkualitas tinggi</p>
+                <div class="grid grid-cols-3">
+                    <!-- Template cards will go here -->
+                    <div class="card card-template">
+                        <div class="card-placeholder">Template 1</div>
+                    </div>
+                    <div class="card card-template">
+                        <div class="card-placeholder">Template 2</div>
+                    </div>
+                    <div class="card card-template">
+                        <div class="card-placeholder">Template 3</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="paket" class="section section-dark">
+            <div class="container">
+                <h2 class="section-title">Paket Harga</h2>
+                <p class="section-subtitle">Pilih paket yang sesuai dengan kebutuhan Anda</p>
+                <div class="grid grid-cols-3">
+                    <!-- Pricing cards will go here -->
+                    <div class="card card-pricing">
+                        <div class="card-placeholder">Paket Basic</div>
+                    </div>
+                    <div class="card card-pricing">
+                        <div class="card-placeholder">Paket Pro</div>
+                    </div>
+                    <div class="card card-pricing">
+                        <div class="card-placeholder">Paket Enterprise</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="fitur" class="section section-light">
+            <div class="container">
+                <h2 class="section-title">Fitur Unggulan</h2>
+                <p class="section-subtitle">Nikmati berbagai fitur canggih untuk kesuksesan bisnis Anda</p>
+                <div class="grid grid-cols-4">
+                    <!-- Feature cards will go here -->
+                    <div class="card card-feature">
+                        <div class="feature-icon">
+                            <i class="fas fa-palette"></i>
+                        </div>
+                        <h3 class="feature-title">Desain Responsif</h3>
+                    </div>
+                    <div class="card card-feature">
+                        <div class="feature-icon">
+                            <i class="fas fa-bolt"></i>
+                        </div>
+                        <h3 class="feature-title">Performa Cepat</h3>
+                    </div>
+                    <div class="card card-feature">
+                        <div class="feature-icon">
+                            <i class="fas fa-lock"></i>
+                        </div>
+                        <h3 class="feature-title">Aman & Terpercaya</h3>
+                    </div>
+                    <div class="card card-feature">
+                        <div class="feature-icon">
+                            <i class="fas fa-headset"></i>
+                        </div>
+                        <h3 class="feature-title">Support 24/7</h3>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="cara-pesan" class="section section-dark">
+            <div class="container">
+                <h2 class="section-title">Cara Pesan</h2>
+                <p class="section-subtitle">Ikuti langkah-langkah sederhana untuk mendapatkan template impian Anda</p>
+                <div class="grid grid-cols-4">
+                    <!-- Steps will go here -->
+                    <div class="card card-step">
+                        <div class="step-number">01</div>
+                        <h3 class="step-title">Pilih Template</h3>
+                    </div>
+                    <div class="card card-step">
+                        <div class="step-number">02</div>
+                        <h3 class="step-title">Checkout</h3>
+                    </div>
+                    <div class="card card-step">
+                        <div class="step-number">03</div>
+                        <h3 class="step-title">Pembayaran</h3>
+                    </div>
+                    <div class="card card-step">
+                        <div class="step-number">04</div>
+                        <h3 class="step-title">Download</h3>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="faq" class="section section-light">
+            <div class="container">
+                <h2 class="section-title">Frequently Asked Questions</h2>
+                <p class="section-subtitle">Temukan jawaban atas pertanyaan umum Anda</p>
+                <div class="faq-container">
+                    <!-- FAQ items will go here -->
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <h3>Apa itu KaZora?</h3>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>KaZora adalah platform penyedia template dan layanan desain profesional untuk kebutuhan digital Anda.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="hubungi" class="section section-dark">
+            <div class="container">
+                <h2 class="section-title">Hubungi Kami</h2>
+                <p class="section-subtitle">Kami siap membantu Anda mewujudkan visi digital</p>
+                <!-- Contact form will go here -->
+            </div>
+        </section>
+        
+        <section id="pesan" class="section section-light">
+            <div class="container">
+                <h2 class="section-title">Pesan Sekarang</h2>
+                <!-- Order form will go here -->
+            </div>
+        </section>
+    </main>
+    
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4 class="footer-title">KaZora</h4>
+                    <p class="footer-text">Platform template dan layanan desain premium untuk visi digital Anda.</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h4 class="footer-title">Menu</h4>
+                    <ul class="footer-links">
+                        <li><a href="#beranda">Beranda</a></li>
+                        <li><a href="#template">Template</a></li>
+                        <li><a href="#paket">Paket Harga</a></li>
+                        <li><a href="#fitur">Fitur</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4 class="footer-title">Hubungi</h4>
+                    <ul class="footer-links">
+                        <li><a href="mailto:info@kazora.id">info@kazora.id</a></li>
+                        <li><a href="tel:+6212345678">+62 1234 5678</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4 class="footer-title">Ikuti Kami</h4>
+                    <ul class="social-links">
+                        <li><a href="#" aria-label="Facebook"><i class="fab fa-facebook"></i></a></li>
+                        <li><a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a></li>
+                        <li><a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a></li>
+                        <li><a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-divider"></div>
+            
+            <div class="footer-bottom">
+                <p class="footer-copyright">&copy; 2024 KaZora. Semua hak dilindungi.</p>
+                <ul class="footer-legal">
+                    <li><a href="#">Kebijakan Privasi</a></li>
+                    <li><a href="#">Syarat & Ketentuan</a></li>
+                    <li><a href="#">Sitemap</a></li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+    
+    <!-- JavaScript -->
+    <script src="scripts/main.js"></script>
+</body>
+</html>
